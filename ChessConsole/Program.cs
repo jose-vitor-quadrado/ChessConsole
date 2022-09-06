@@ -8,7 +8,8 @@ namespace ChessConsole
         static void Main(string[] args)
         {
             Board gb = new Board(8, 8);
-            Console.ReadLine();
+
+            Screen.PrintBoard(gb);
         }
     }
 }
