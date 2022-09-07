@@ -15,7 +15,10 @@ namespace ChessConsole
                     {
                         Console.Write("- ");
                     }
-                    Console.Write(board.Piece(i, j) + " ");
+                    else 
+                    {
+                        Console.Write(board.Piece(i, j) + " ");
+                    }
                 }
                 Console.WriteLine();
             }
