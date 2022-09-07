@@ -16,5 +16,10 @@ namespace ChessConsole.GameBoard
             Color = color;
             NumberOfMoves = 0;
         }
+
+        public void IncrementNumberOfMoves()
+        {
+            NumberOfMoves++;
+        }
     }
 }

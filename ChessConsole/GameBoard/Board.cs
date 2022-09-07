@@ -25,6 +25,12 @@ namespace ChessConsole.GameBoard
             return Pieces[position.Line, position.Column];
         }
 
+        public bool HasPiece(Position position)
+        {
+            ValidatePosition(position);
+            return Piece(position) != null;
+        }
+
         public void InsertPiece(Piece piece, Position position)
         {
             if (HasPiece(position))
@@ -35,10 +41,16 @@ namespace ChessConsole.GameBoard
             piece.Position = position;
         }
 
-        public bool HasPiece(Position position)
+        public Piece RemovePiece(Position position)
         {
-            ValidatePosition(position);
-            return Piece(position) != null;
+            if (Piece(position) == null)
+            {
+                return null;
+            }
+            Piece aux = Piece(position);
+            aux.Position = null;
+            Pieces[position.Line, position.Column] = null;
+            return aux;
         }
 
         public bool ValidPosition(Position position)
