@@ -22,6 +22,11 @@ namespace ChessConsole.GameBoard
             NumberOfMoves++;
         }
 
+        public void DecrementNumberOfMoves()
+        {
+            NumberOfMoves--;
+        }
+
         public bool ExistPossibleMoves()
         {
             bool[,] mat = PossibleMoves();

@@ -36,7 +36,7 @@ namespace ChessConsole
                         Position destiny = Screen.ReadChessPosition().ToPosition();
                         match.ValidateDestinyPosition(origin, destiny);
 
-                        match.MakesMove(origin, destiny);
+                        match.MakeMovement(origin, destiny);
                     }   
                     catch (BoardException error)
                     {
