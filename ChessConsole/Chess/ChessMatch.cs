@@ -1,14 +1,14 @@
-﻿using System;
-using ChessConsole.GameBoard;
+﻿using ChessConsole.GameBoard;
 using ChessConsole.GameBoard.Enums;
+using ChessConsole.GameBoard.Exceptions;
 
 namespace ChessConsole.Chess
 {
     class ChessMatch
     {
         public Board Board { get; private set; }
-        private int Turn;
-        private Color CurrentPlayer;
+        public int Turn { get; private set; }
+        public Color CurrentPlayer { get; private set; }
         public bool Finished { get; private set; }
 
         public ChessMatch()
@@ -26,6 +26,49 @@ namespace ChessConsole.Chess
             piece.IncrementNumberOfMoves();
             Piece CapturedPiece = Board.RemovePiece(destiny);
             Board.InsertPiece(piece, destiny);
+        }
+
+        public void MakesMove(Position origin, Position destiny)
+        {
+            ExecuteMovement(origin, destiny);
+            Turn++;
+            ChangePlayer();
+        }
+
+        public void ValidateOriginPosition(Position position)
+        {
+            if (Board.Piece(position) == null)
+            {
+                throw new BoardException("There is no piece in the defined origin position!");
+            }
+            if (CurrentPlayer != Board.Piece(position).Color)
+            {
+                throw new BoardException("The piece you chosed is not yours!");
+            }
+            if (!Board.Piece(position).ExistPossibleMoves())
+            {
+                throw new BoardException("There are no possible moves for the chosen piece!");
+            }
+        }
+
+        public void ValidateDestinyPosition(Position origin, Position destiny)
+        {
+            if (!Board.Piece(origin).CanMoveTo(destiny))
+            {
+                throw new BoardException("Invalid destiny position!");
+            }
+        }
+
+        private void ChangePlayer()
+        {
+            if (CurrentPlayer == Color.White)
+            {
+                CurrentPlayer = Color.Black;
+            }
+            else
+            {
+                CurrentPlayer = Color.White;
+            }
         }
 
         private void InsertPieces()
