@@ -17,10 +17,10 @@ namespace ChessConsole.Chess
         private bool ExistEnemy(Position position)
         {
             Piece piece = Board.Piece(position);
-            return position != null && piece.Color != Color;
+            return piece != null && piece.Color != Color;
         }
 
-        private bool Free(Position position)
+        private bool FreePosition(Position position)
         {
             return Board.Piece(position) == null;
         }
@@ -35,14 +35,16 @@ namespace ChessConsole.Chess
             if (Color == Color.White)
             {
                 position.DefineValues(position.Line - 1, position.Column);
-                if (Board.ValidPosition(position) && Free(position))
+                if (Board.ValidPosition(position) && FreePosition(position))
                 {
                     mat[position.Line, position.Column] = true;
                 }
 
                 position = new Position(originalLine, originalColumn);
                 position.DefineValues(position.Line - 2, position.Column);
-                if (Board.ValidPosition(position) && Free(position) && NumberOfMoves == 0)
+                if (Board.ValidPosition(position)
+                    && FreePosition(position)
+                    && NumberOfMoves == 0)
                 {
                     mat[position.Line, position.Column] = true;
                 }
@@ -64,14 +66,16 @@ namespace ChessConsole.Chess
             else
             {
                 position.DefineValues(position.Line + 1, position.Column);
-                if (Board.ValidPosition(position) && Free(position))
+                if (Board.ValidPosition(position) && FreePosition(position))
                 {
                     mat[position.Line, position.Column] = true;
                 }
 
                 position = new Position(originalLine, originalColumn);
                 position.DefineValues(position.Line + 2, position.Column);
-                if (Board.ValidPosition(position) && Free(position) && NumberOfMoves == 0)
+                if (Board.ValidPosition(position)
+                    && FreePosition(position)
+                    && NumberOfMoves == 0)
                 {
                     mat[position.Line, position.Column] = true;
                 }
