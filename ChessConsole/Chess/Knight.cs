@@ -3,15 +3,15 @@ using ChessConsole.GameBoard.Enums;
 
 namespace ChessConsole.Chess
 {
-    class King : Piece
+    class Knight : Piece
     {
-        public King(Board board, Color color) : base(board, color)
+        public Knight(Board board, Color color) : base(board, color)
         {
         }
 
         public override string ToString()
         {
-            return "K";
+            return "H";
         }
 
         private bool CanMove(Position position)
@@ -26,65 +26,57 @@ namespace ChessConsole.Chess
             int originalLine = Position.Line;
             int originalColumn = Position.Column;
 
-            // N
             Position position = new Position(originalLine, originalColumn);
-            position.DefineValues(position.Line - 1, position.Column);
+            position.DefineValues(position.Line - 1, position.Column - 2);
             if (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }
 
-            // NE
             position = new Position(originalLine, originalColumn);
-            position.DefineValues(position.Line - 1, position.Column + 1);
+            position.DefineValues(position.Line - 2, position.Column - 1);
             if (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }
 
-            // E
             position = new Position(originalLine, originalColumn);
-            position.DefineValues(position.Line, position.Column + 1);
+            position.DefineValues(position.Line - 2, position.Column + 1);
             if (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }
 
-            // SE
             position = new Position(originalLine, originalColumn);
-            position.DefineValues(position.Line + 1, position.Column + 1);
+            position.DefineValues(position.Line - 1, position.Column + 2);
             if (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }
 
-            // S
             position = new Position(originalLine, originalColumn);
-            position.DefineValues(position.Line + 1, position.Column);
+            position.DefineValues(position.Line + 1, position.Column + 2);
             if (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }
 
-            // SW
             position = new Position(originalLine, originalColumn);
-            position.DefineValues(position.Line + 1, position.Column - 1);
+            position.DefineValues(position.Line + 2, position.Column + 1);
             if (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }
 
-            // W
             position = new Position(originalLine, originalColumn);
-            position.DefineValues(position.Line, position.Column - 1);
+            position.DefineValues(position.Line + 2, position.Column - 1);
             if (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }
 
-            // NW
             position = new Position(originalLine, originalColumn);
-            position.DefineValues(position.Line - 1, position.Column - 1);
+            position.DefineValues(position.Line + 1, position.Column - 2);
             if (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;

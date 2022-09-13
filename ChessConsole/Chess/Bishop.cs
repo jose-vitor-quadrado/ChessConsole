@@ -3,18 +3,18 @@ using ChessConsole.GameBoard.Enums;
 
 namespace ChessConsole.Chess
 {
-    class Rook : Piece
+    class Bishop : Piece
     {
-        public Rook(Board board, Color color) : base(board, color)
+        public Bishop(Board board, Color color) : base(board, color)
         {
         }
 
         public override string ToString()
         {
-            return "R";
+            return "B";
         }
 
-        public bool CanMove(Position position)
+        private bool CanMove(Position position)
         {
             Piece piece = Board.Piece(position);
             return piece == null || piece.Color != Color;
@@ -26,9 +26,9 @@ namespace ChessConsole.Chess
             int originalLine = Position.Line;
             int originalColumn = Position.Column;
 
-            // N
+            // NW
             Position position = new Position(originalLine, originalColumn);
-            position.DefineValues(position.Line - 1, position.Column);
+            position.DefineValues(position.Line - 1, position.Column - 1);
             while (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
@@ -36,12 +36,12 @@ namespace ChessConsole.Chess
                 {
                     break;
                 }
-                position.Line--;
+                position.DefineValues(position.Line - 1, position.Column - 1);
             }
 
-            // S
+            // NE
             position = new Position(originalLine, originalColumn);
-            position.DefineValues(position.Line + 1, position.Column);
+            position.DefineValues(position.Line - 1, position.Column + 1);
             while (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
@@ -49,12 +49,12 @@ namespace ChessConsole.Chess
                 {
                     break;
                 }
-                position.Line++;
+                position.DefineValues(position.Line - 1, position.Column + 1);
             }
 
-            // E
+            // SE
             position = new Position(originalLine, originalColumn);
-            position.DefineValues(position.Line, position.Column + 1);
+            position.DefineValues(position.Line + 1, position.Column + 1);
             while (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
@@ -62,12 +62,12 @@ namespace ChessConsole.Chess
                 {
                     break;
                 }
-                position.Column++;
+                position.DefineValues(position.Line + 1, position.Column + 1);
             }
 
-            // W
+            // SW
             position = new Position(originalLine, originalColumn);
-            position.DefineValues(position.Line, position.Column - 1);
+            position.DefineValues(position.Line + 1, position.Column - 1);
             while (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
@@ -75,7 +75,7 @@ namespace ChessConsole.Chess
                 {
                     break;
                 }
-                position.Column--;
+                position.DefineValues(position.Line + 1, position.Column - 1);
             }
 
             return mat;
